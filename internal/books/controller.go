@@ -9,7 +9,7 @@ import (
 type BookController struct {}
 
 func NewBookController() *BookController {
-    return &BookController{
+    return &BookController{}
 }
 
 func (b *BookController) SaveBook(book Book) error {
