@@ -1,6 +1,7 @@
-export namespace models {
+export namespace books {
 	
 	export class Book {
+	    id?: string;
 	    author: string;
 	    title: string;
 	    content: string;
@@ -11,6 +12,7 @@ export namespace models {
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
 	        this.author = source["author"];
 	        this.title = source["title"];
 	        this.content = source["content"];

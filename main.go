@@ -1,7 +1,7 @@
 package main
 
 import (
-	"changeme/internal/models"
+	"changeme/internal/books"
 	"embed"
 
 	"github.com/wailsapp/wails/v2"
@@ -15,7 +15,7 @@ var assets embed.FS
 func main() {
 	// Create an instance of the app structure
 	app := NewApp()
-    bookController := models.NewBookController();
+    bookController := books.NewBookController();
 
 	// Create application with options
 	err := wails.Run(&options.App{

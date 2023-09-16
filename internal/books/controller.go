@@ -1,4 +1,4 @@
-package models
+package books 
 
 import (
 	"encoding/json"
@@ -6,17 +6,10 @@ import (
 	"os"
 )
 
-type Book struct {
-    Author string `json:"author"`
-    Title string `json:"title"`
-    Content string `json:"content"`
-}
-
 type BookController struct {}
 
-
 func NewBookController() *BookController {
-    return &BookController{}
+    return &BookController{
 }
 
 func (b *BookController) SaveBook(book Book) error {
@@ -26,9 +19,12 @@ func (b *BookController) SaveBook(book Book) error {
     }
 
     docsPath := "/Users/antonpodkur/Documents/Marker"
-    err = os.Mkdir(docsPath, 0755)
-    if err != nil {
-        return err
+    
+    if _, err = os.Stat(docsPath); os.IsNotExist(err) {
+        err = os.Mkdir(docsPath, 0755)
+        if err != nil {
+            return err
+        }
     }
 
     filePath := docsPath + fmt.Sprintf("/%s.json", book.Title) 

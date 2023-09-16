@@ -2,11 +2,13 @@ import React from "react"
 import { useState } from "react"
 import { ArrowLeft } from "react-feather"
 import { Link } from "react-router-dom"
+import SideBarItem from "./SideBarItem"
+import { Book } from "react-feather"
 
 const SideBar: React.FC = () => {
     const [open, setOpen] = useState(false)
     return ( 
-        <div className={`bg-slate-300 h-screen p-5 ${open ? "w-72" : "w-10"} duration-300 relative`}>
+        <div className={`bg-slate-300 h-screen p-3 ${open ? "w-72" : "w-20"}  relative`}>
 
             {/* Arrow icon */}
             <div 
@@ -16,11 +18,9 @@ const SideBar: React.FC = () => {
             </div>
 
             {/* Sidebar body */}
-            <div className={`${!open && "scale-0"} flex flex-col flex-start duration-300`}>
-                <Link to="/" className="text-2xl text-black font-bold mb-5">Marker</Link>
-                <div>
-                    Item
-                </div>
+            <div className={`flex flex-col items-center`}>
+                <Link to="/" className={`${!open && "scale-0"} text-2xl text-black font-bold mb-5`}>Marker</Link>
+                <SideBarItem path="book/create" text="Create a book" icon={Book} hiddenText={!open} />
             </div>
         </div>
     )

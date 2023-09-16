@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Book } from "../models/book";
-import {SaveBook} from "../../wailsjs/go/models/BookController"
+import {SaveBook} from "../../wailsjs/go/books/BookController"
+import Button from "../components/general/Button";
 
 const CreateBook: React.FC = () => {
     const [book, setBook] = useState<Book>({author: "", title: "", content: ""})
@@ -31,12 +32,7 @@ const CreateBook: React.FC = () => {
             onChange={(e) => setBook({...book, title: e.target.value})}
             className="mt-5 px-2 py-1 border border-black rounded" 
         />
-        <button 
-            onClick={() => saveBook()}
-            className="mt-10 px-6 py-1 text-xl font-bold border-2 border-black rounded"
-        >
-            Create
-        </button>
+        <Button className="mt-10" onClick={() => saveBook()}>Create</Button>
       </div>
     )
 }
