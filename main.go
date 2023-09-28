@@ -2,8 +2,10 @@ package main
 
 import (
 	"changeme/internal/books"
+	DB "changeme/pkg/db"
 	"embed"
 
+	_ "github.com/mattn/go-sqlite3"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
@@ -15,10 +17,23 @@ var assets embed.FS
 func main() {
 	// Create an instance of the app structure
 	app := NewApp()
-    bookController := books.NewBookController();
+
+	db, err := DB.ConnectDatabase()
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	err = DB.EnshureDatabaseExist(db);
+	if err != nil {
+		panic(err)
+	}
+
+	bookRepository := books.NewBookRepository(db)
+	bookController := books.NewBookController(bookRepository)
 
 	// Create application with options
-	err := wails.Run(&options.App{
+	err = wails.Run(&options.App{
 		Title:  "Marker",
 		Width:  1024,
 		Height: 768,
@@ -29,7 +44,7 @@ func main() {
 		OnStartup:        app.startup,
 		Bind: []interface{}{
 			app,
-            bookController,
+			bookController,
 		},
 	})
 

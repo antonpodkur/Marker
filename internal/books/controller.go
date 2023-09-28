@@ -6,14 +6,23 @@ import (
 	"os"
 )
 
-type BookController struct {}
+type BookController struct {
+    bookRepository *BookRepository 
+}
 
-func NewBookController() *BookController {
-    return &BookController{}
+func NewBookController( bookRepository *BookRepository ) *BookController {
+    return &BookController{ 
+        bookRepository: bookRepository,
+    }
 }
 
 func (b *BookController) SaveBook(book Book) error {
     data, err := json.Marshal(book);
+    if err != nil {
+        return err
+    }
+
+    _, err = b.bookRepository.Create(&book)
     if err != nil {
         return err
     }
