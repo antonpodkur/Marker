@@ -1,8 +1,8 @@
 package main
 
 import (
-	"changeme/internal/books"
-	DB "changeme/pkg/db"
+	"marker/internal/books"
+	DB "marker/pkg/db"
 	"embed"
 
 	_ "github.com/mattn/go-sqlite3"
