@@ -1,9 +1,10 @@
 package main
 
 import (
-	"marker/internal/books"
-	DB "marker/pkg/db"
 	"embed"
+	"marker/internal/books"
+	"marker/internal/user"
+	DB "marker/pkg/db"
 
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/wailsapp/wails/v2"
@@ -31,6 +32,11 @@ func main() {
 
 	bookRepository := books.NewBookRepository(db)
 	bookController := books.NewBookController(bookRepository)
+	userController, err := user.NewUserController()
+
+	if err != nil {
+		panic(err)
+	}
 
 	// Create application with options
 	err = wails.Run(&options.App{
@@ -45,6 +51,7 @@ func main() {
 		Bind: []interface{}{
 			app,
 			bookController,
+			userController,
 		},
 	})
 

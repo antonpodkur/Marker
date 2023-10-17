@@ -21,3 +21,22 @@ export namespace books {
 
 }
 
+export namespace user {
+	
+	export class UserConfig {
+	    firstLaunch: boolean;
+	    folder: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new UserConfig(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.firstLaunch = source["firstLaunch"];
+	        this.folder = source["folder"];
+	    }
+	}
+
+}
+

@@ -8,7 +8,7 @@ import { Book } from "react-feather"
 const SideBar: React.FC = () => {
     const [open, setOpen] = useState(false)
     return ( 
-        <div className={`bg-slate-300 h-screen p-3 ${open ? "w-72" : "w-20"}  relative`}>
+        <div className={`bg-slate-100 h-screen p-3 ${open ? "w-72" : "w-20"}  relative`}>
 
             {/* Arrow icon */}
             <div 

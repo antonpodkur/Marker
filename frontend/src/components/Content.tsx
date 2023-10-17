@@ -3,15 +3,19 @@ import CreateBook from "../pages/CreateBook";
 import Welcome from "../pages/Welcome";
 import { useEffect, useState } from "react";
 import React from "react";
+import Home from "../pages/Home";
+import { useStore } from "../store/store";
 
 const Content: React.FC = () => {
   const location = useLocation();
+  const firstLauch = useStore(store => store.firstLaunch);
 
-  const [displayLocation, setDisplayLocation] = useState(location);
-  const [transitionStage, setTransitionStage] = useState("fadeIn");
+  const [displayLocation, setDisplayLocation] = useState(location)
+  const [transitionStage, setTransitionStage] = useState("fadeIn")
 
   useEffect(() => {
-    if (location != displayLocation) setTransitionStage ("fadeOut");
+    console.log(firstLauch)
+    if (location != displayLocation) setTransitionStage("fadeOut")
   }, [location, displayLocation]);
   return (
     <div
@@ -22,11 +26,11 @@ const Content: React.FC = () => {
           setDisplayLocation(location);
         }
       }}
-      >
+    >
 
       <Routes location={displayLocation}>
-          <Route path='/' Component={Welcome} />
-          <Route path='book/create' Component={CreateBook} />
+        <Route path='/' element={firstLauch ? <Welcome /> : <Home />} />
+        <Route path='book/create' element={<CreateBook />} />
       </Routes>
     </div>
   );
