@@ -2,6 +2,8 @@ import React, { useEffect } from "react"
 import SideBarItem from "../components/SideBarItem"
 import { Book } from "react-feather"
 import { useStore } from "../store/store"
+import { SelectFolder } from "../../wailsjs/go/user/UserController"
+import Button from "../components/general/Button" 
 
 const Welcome: React.FC = () => {
   const store = useStore() 
@@ -15,6 +17,11 @@ const Welcome: React.FC = () => {
     console.log(store.config.firstLaunch)
   }, [])
 
+  async function selectFolder() {
+    const dir = await SelectFolder() // add try catch here 
+    console.log(dir)
+    store.updateConfig({...store.config, folder: dir}) 
+  }
 
   const welcomeText = 'Marker is an app that will help you write your awesome books'
 
@@ -22,6 +29,13 @@ const Welcome: React.FC = () => {
     <div className="flex w-full h-full flex-col items-center bg-white text-black">
         <div className="text-black font-bold text-4xl mt-12 mb-16">Welcome to Marker!</div>
         <div className="text-black text-3xl mb-20">{welcomeText}</div>
+        <div className="text-black text-2xl mb-6">Select folder where you want to store your books 👇</div>
+        <Button 
+          className="mb-20"
+          onClick={async () => await selectFolder()}
+        >
+          Select folder
+        </Button>
         <SideBarItem path="book/create" text="Create a book" icon={Book}/>
     </div>
   )  

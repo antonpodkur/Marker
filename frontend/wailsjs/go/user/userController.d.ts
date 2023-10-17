@@ -4,4 +4,6 @@ import {user} from '../models';
 
 export function GetUserConfig():Promise<user.UserConfig>;
 
+export function SelectFolder():Promise<string>;
+
 export function UpdateUserConfig(arg1:user.UserConfig):Promise<void>;

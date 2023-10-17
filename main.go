@@ -32,7 +32,7 @@ func main() {
 
 	bookRepository := books.NewBookRepository(db)
 	bookController := books.NewBookController(bookRepository)
-	userController, err := user.NewUserController()
+	userController, err := user.NewUserController(&app.ctx)
 
 	if err != nil {
 		panic(err)

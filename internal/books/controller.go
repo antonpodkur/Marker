@@ -1,8 +1,10 @@
-package books 
+package books
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"marker/internal/user"
 	"os"
 )
 
@@ -27,7 +29,15 @@ func (b *BookController) SaveBook(book Book) error {
         return err
     }
 
-    docsPath := "/Users/antonpodkur/Documents/Marker"
+    userConfig, err := user.NewUserConfig()
+    if err != nil {
+        return err
+    }
+    if userConfig.Folder == "" {
+        return errors.New("folder is not selected")
+    }
+
+    docsPath := userConfig.Folder
     
     if _, err = os.Stat(docsPath); os.IsNotExist(err) {
         err = os.Mkdir(docsPath, 0755)
