@@ -4,6 +4,7 @@ import (
 	"embed"
 	"marker/internal/books"
 	"marker/internal/user"
+	"marker/pkg/config"
 	DB "marker/pkg/db"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -18,6 +19,11 @@ var assets embed.FS
 func main() {
 	// Create an instance of the app structure
 	app := NewApp()
+
+	err := config.CheckConfigFolderExistance()
+	if err != nil {
+		panic(err)
+	}
 
 	db, err := DB.ConnectDatabase()
 	if err != nil {

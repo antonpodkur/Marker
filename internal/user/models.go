@@ -2,13 +2,10 @@ package user
 
 import (
 	"encoding/json"
+	"marker/pkg/config"
 	"os"
-	"path"
-)
-
-var (
-	configFile = path.Join("./config", "user-config.json")
-
+	"path/filepath"
+	"github.com/labstack/gommon/log"
 )
 
 type UserConfig struct {
@@ -17,9 +14,29 @@ type UserConfig struct {
 }
 
 func NewUserConfig () (*UserConfig, error) {
-	configFile := path.Join("./config", "user-config.json")
+	configPath, err := config.GetConfigFolder()
+	if err != nil {
+		return nil, err
+	}
+
+	configFolder := filepath.Join(*configPath, "config") 
+	configFile := filepath.Join(configFolder, "user-config.json")
+
+	_, err = os.Stat(configFolder)
+
+	if os.IsNotExist(err) {
+		err := os.MkdirAll(configFolder, 0755)
+		if err != nil {
+			return nil, err
+		}
+	} else if err != nil {
+		return nil, err
+	} else {
+		log.Print("Folder already exists")
+	}
 
 	if _, err := os.Stat(configFile); os.IsNotExist(err) {
+		log.Print("Config file does not exist")
 		newConfig := UserConfig{
 			FirstLaunch: true,
 			Folder: "",
@@ -55,6 +72,13 @@ func WriteUserConfig (newConfig UserConfig) error {
 	if err != nil {
 		return err
 	}
+
+	configPath, err := config.GetConfigFolder()
+	if err != nil {
+		return err
+	}
+
+	configFile := filepath.Join(*configPath, "config", "user-config.json") 
 
 	err = os.WriteFile(configFile, newConfigJson, 0644)
 	if err != nil {
