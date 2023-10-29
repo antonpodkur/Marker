@@ -4,7 +4,7 @@ import {SaveBook} from "../../wailsjs/go/books/BookController"
 import Button from "../components/general/Button";
 
 const CreateBook: React.FC = () => {
-    const [book, setBook] = useState<Book>({author: "", title: "", content: ""})
+    const [book, setBook] = useState<Book>({id: "1", author: "", title: "", content: ""})
 
     const saveBook = () => {
         console.log("Saving a book ...")

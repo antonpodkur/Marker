@@ -19,15 +19,16 @@ func NewBookController( bookRepository *BookRepository ) *BookController {
 }
 
 func (b *BookController) SaveBook(book Book) error {
+    _, err := b.bookRepository.Create(&book)
+    if err != nil {
+        return err
+    }
+
     data, err := json.Marshal(book);
     if err != nil {
         return err
     }
 
-    _, err = b.bookRepository.Create(&book)
-    if err != nil {
-        return err
-    }
 
     userConfig, err := user.NewUserConfig()
     if err != nil {
@@ -54,3 +55,8 @@ func (b *BookController) SaveBook(book Book) error {
 
     return nil
 }
+
+func (b * BookController) GetAllBooks() ([]Book, error) {
+    books, err := b.bookRepository.GetAll();
+    return *books, err;
+}   

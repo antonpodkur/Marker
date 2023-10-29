@@ -1,9 +1,9 @@
 import React, { useEffect } from "react"
-import SideBarItem from "../components/SideBarItem"
 import { Book } from "react-feather"
 import { useStore } from "../store/store"
 import { SelectFolder } from "../../wailsjs/go/user/UserController"
 import Button from "../components/general/Button" 
+import NavigationButton from "../components/general/NavigationButton"
 
 const Welcome: React.FC = () => {
   const store = useStore() 
@@ -36,7 +36,7 @@ const Welcome: React.FC = () => {
         >
           Select folder
         </Button>
-        <SideBarItem path="book/create" text="Create a book" icon={Book}/>
+        <NavigationButton path="book/create" text="Create a book" icon={Book}/>
     </div>
   )  
 }
