@@ -6,6 +6,7 @@ import React from "react";
 import Home from "../pages/Home";
 import { useStore } from "../store/store";
 import BookList from "../pages/BookList";
+import EditBook from "../pages/EditBook";
 
 const Content: React.FC = () => {
   const location = useLocation();
@@ -31,9 +32,10 @@ const Content: React.FC = () => {
 
       <Routes location={displayLocation}>
         <Route path='/' element={firstLauch ? <Welcome /> : <Home />} />
-        <Route path='book' element={<BookList />} />
-        <Route path='book/create' element={<CreateBook />} />
-        <Route path='settings' element={<Welcome />} />
+        <Route path='/book' element={<BookList />} />
+        <Route path='/book/create' element={<CreateBook />} />
+        <Route path='/book/edit/:id' element={<EditBook />} />
+        <Route path='/settings' element={<Welcome />} />
       </Routes>
     </div>
   );
