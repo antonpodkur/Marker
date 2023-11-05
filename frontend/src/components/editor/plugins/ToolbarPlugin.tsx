@@ -40,8 +40,12 @@ import {
   getDefaultCodeLanguage,
   getCodeLanguages
 } from "@lexical/code";
+import {$generateHtmlFromNodes} from '@lexical/html';
+import { htmlStringToPdf } from "../utils";
+import { EXPORT_PDF_COMMAND } from "../lexicalCommands";
 
 const LowPriority = 1;
+const NormalPriority = 2;
 
 const supportedBlockTypes = new Set([
   "paragraph",
@@ -515,6 +519,14 @@ export default function ToolbarPlugin() {
           return false;
         },
         LowPriority
+      ),
+      editor.registerCommand(
+        EXPORT_PDF_COMMAND,
+        (payload) => {
+          htmlStringToPdf(payload)
+          return true;
+        },
+        NormalPriority
       )
     );
   }, [editor, updateToolbar]);
@@ -690,6 +702,12 @@ export default function ToolbarPlugin() {
           <button
             onClick={() => {
               editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "justify");
+              //TODO: Move this to another button
+              const htmlString = editor
+                .getEditorState()
+                .read(() => $generateHtmlFromNodes(editor, null));
+              console.log(htmlString);
+              editor.dispatchCommand(EXPORT_PDF_COMMAND, htmlString);
             }}
             className="toolbar-item"
             aria-label="Justify Align"
