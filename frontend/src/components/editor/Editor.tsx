@@ -21,10 +21,12 @@ import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
 
 import "./styles.css"
+import { Book } from "../../models/book";
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
 }
+
 
 const editorConfig = {
   // The editor theme
@@ -50,9 +52,44 @@ const editorConfig = {
   ]
 };
 
-export default function Editor() {
+interface EditorProps {
+  book: Book | null;  
+  defaultInitState: string;
+}
+
+export default function Editor({book, defaultInitState}: EditorProps){
+
+  function EditorConfig() {
+    const editorState = book && book.content && book.content !== "" ? book.content : defaultInitState 
+
+    return {
+      // The editor theme
+      theme: MainTheme,
+      // Handling of errors during update
+      onError(error: any) {
+        throw error;
+      },
+      namespace: "Marker",
+      editorState: editorState, 
+      // Any custom nodes go here
+      nodes: [
+        HeadingNode,
+        ListNode,
+        ListItemNode,
+        QuoteNode,
+        CodeNode,
+        CodeHighlightNode,
+        TableNode,
+        TableCellNode,
+        TableRowNode,
+        AutoLinkNode,
+        LinkNode
+      ]
+    };
+  }
+
   return (
-    <LexicalComposer initialConfig={editorConfig}>
+    <LexicalComposer initialConfig={EditorConfig()}>
       <div className="editor-container">
         <ToolbarPlugin />
         <div className="editor-inner">

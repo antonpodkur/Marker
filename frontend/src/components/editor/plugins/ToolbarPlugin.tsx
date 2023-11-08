@@ -40,9 +40,14 @@ import {
   getDefaultCodeLanguage,
   getCodeLanguages
 } from "@lexical/code";
-import {$generateHtmlFromNodes} from '@lexical/html';
+// import {$generateHtmlFromNodes} from '@lexical/html';
+// import { $convertToMarkdownString, TRANSFORMERS} from '@lexical/markdown';
 import { htmlStringToPdf } from "../utils";
-import { EXPORT_PDF_COMMAND } from "../lexicalCommands";
+import { EXPORT_PDF_COMMAND, SAVE_DOCUMENT_COMMAND } from "../lexicalCommands";
+import { SaveBook, UpdateBook } from "../../../../wailsjs/go/books/BookController";
+import { useStore } from "../../../store/store";
+import { Book } from "../../../models/book";
+import { Save } from "react-feather";
 
 const LowPriority = 1;
 const NormalPriority = 2;
@@ -444,6 +449,8 @@ export default function ToolbarPlugin() {
   const [isStrikethrough, setIsStrikethrough] = useState(false);
   const [isCode, setIsCode] = useState(false);
 
+  const {currentBook, setCurrentBook} = useStore();
+
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
     if ($isRangeSelection(selection)) {
@@ -524,6 +531,15 @@ export default function ToolbarPlugin() {
         EXPORT_PDF_COMMAND,
         (payload) => {
           htmlStringToPdf(payload)
+          return true;
+        },
+        NormalPriority
+      ),
+      editor.registerCommand(
+        SAVE_DOCUMENT_COMMAND,
+        (payload) => {
+          // UpdateBook(payload).then(() => console.log("Updated!")).catch((err: any) => console.error(err))   
+          UpdateBook(payload)
           return true;
         },
         NormalPriority
@@ -703,16 +719,33 @@ export default function ToolbarPlugin() {
             onClick={() => {
               editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "justify");
               //TODO: Move this to another button
-              const htmlString = editor
-                .getEditorState()
-                .read(() => $generateHtmlFromNodes(editor, null));
-              console.log(htmlString);
-              editor.dispatchCommand(EXPORT_PDF_COMMAND, htmlString);
+              // const htmlString = editor
+              //   .getEditorState()
+              //   .read(() => $generateHtmlFromNodes(editor, null));
+              // const markDownString = editor
+              //   .getEditorState()
+              //   .read(() => $convertToMarkdownString(TRANSFORMERS));
+              // console.log(markDownString);
+              // editor.dispatchCommand(EXPORT_PDF_COMMAND, htmlString);
             }}
             className="toolbar-item"
             aria-label="Justify Align"
           >
             <i className="format justify-align" />
+          </button>{" "}
+          <button
+            onClick={() => {
+              if (currentBook !== null) {
+                setCurrentBook( {...currentBook, content: JSON.stringify(editor.getEditorState())} as Book) 
+                const book = {...currentBook, content: JSON.stringify(editor.getEditorState())} as Book
+                console.log(book)
+                editor.dispatchCommand(SAVE_DOCUMENT_COMMAND, book);
+              }
+            }}
+            className="toolbar-item"
+            aria-label="Save"
+          >
+            <Save/>
           </button>{" "}
         </>
       )}

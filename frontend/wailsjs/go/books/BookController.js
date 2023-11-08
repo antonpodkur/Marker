@@ -6,6 +6,18 @@ export function GetAllBooks() {
   return window['go']['books']['BookController']['GetAllBooks']();
 }
 
+export function GetBookById(arg1) {
+  return window['go']['books']['BookController']['GetBookById'](arg1);
+}
+
 export function SaveBook(arg1) {
   return window['go']['books']['BookController']['SaveBook'](arg1);
+}
+
+export function SavePdf(arg1) {
+  return window['go']['books']['BookController']['SavePdf'](arg1);
+}
+
+export function UpdateBook(arg1) {
+  return window['go']['books']['BookController']['UpdateBook'](arg1);
 }

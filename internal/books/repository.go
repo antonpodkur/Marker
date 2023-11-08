@@ -1,6 +1,7 @@
 package books
 
 import (
+
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
 )
@@ -28,6 +29,18 @@ func (r *BookRepository) Create(book *Book) (*Book, error) {
 	return book, nil
 }
 
+func (r *BookRepository) Update(book *Book) error {
+	qry, args, err := sqlx.In(updateBook2, book.Author, book.Title, book.Content, book.ID)
+	if err != nil {
+		return err
+	}
+	_, err = r.db.Exec(qry, args...)
+	if err != nil {
+		return err
+	}
+	return nil 
+}
+
 func (r *BookRepository) GetAll() (*[]Book, error) {
 	var books []Book
 
@@ -50,4 +63,16 @@ func (r *BookRepository) GetAll() (*[]Book, error) {
 	}
 
 	return &books, nil
+}
+
+func (r *BookRepository) GetById(id int) (*Book, error) {
+	var book Book
+	
+	row := r.db.QueryRowx(selectBookById, id)
+	err := row.StructScan(&book)
+	if err != nil {
+		return nil, err
+	}
+
+	return &book, nil
 }

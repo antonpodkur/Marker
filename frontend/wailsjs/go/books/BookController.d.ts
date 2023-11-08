@@ -4,4 +4,10 @@ import {books} from '../models';
 
 export function GetAllBooks():Promise<Array<books.Book>>;
 
+export function GetBookById(arg1:number):Promise<books.Book>;
+
 export function SaveBook(arg1:books.Book):Promise<void>;
+
+export function SavePdf(arg1:string):Promise<void>;
+
+export function UpdateBook(arg1:books.Book):Promise<void>;
