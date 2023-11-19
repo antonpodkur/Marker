@@ -122,3 +122,8 @@ func (b *BookController) SavePdf(base64Image string) error {
 
 	return nil
 }
+
+func (b *BookController) DeleteBookById(id int) error {
+	err := b.bookRepository.Delete(id)
+	return err
+}

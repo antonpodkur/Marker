@@ -32,7 +32,7 @@ const Content: React.FC = () => {
 
       <Routes location={displayLocation}>
         <Route path='/' element={firstLauch ? <Welcome /> : <Home />} />
-        <Route path='/book' element={<BookList />} />
+        <Route path='/books' element={<BookList />} />
         <Route path='/book/create' element={<CreateBook />} />
         <Route path='/book/edit/:id' element={<EditBook />} />
         <Route path='/settings' element={<Welcome />} />

@@ -16,31 +16,6 @@ func NewBookRepository(db *sqlx.DB) *BookRepository {
 	}
 }
 
-func (r *BookRepository) Create(book *Book) (*Book, error) {
-	if err := r.db.QueryRowx(
-		insertNewBook,
-		&book.Author,
-		&book.Title,
-		&book.Content,
-	).StructScan(book); err != nil {
-		return nil, errors.Wrap(err, "booksRepo.Create.QueryRowx")
-	}
-
-	return book, nil
-}
-
-func (r *BookRepository) Update(book *Book) error {
-	qry, args, err := sqlx.In(updateBook, book.Author, book.Title, book.Content, book.ID)
-	if err != nil {
-		return err
-	}
-	_, err = r.db.Exec(qry, args...)
-	if err != nil {
-		return err
-	}
-	return nil 
-}
-
 func (r *BookRepository) GetAll() (*[]Book, error) {
 	var books []Book
 
@@ -75,4 +50,42 @@ func (r *BookRepository) GetById(id int) (*Book, error) {
 	}
 
 	return &book, nil
+}
+
+
+func (r *BookRepository) Create(book *Book) (*Book, error) {
+	if err := r.db.QueryRowx(
+		insertNewBook,
+		&book.Author,
+		&book.Title,
+		&book.Content,
+	).StructScan(book); err != nil {
+		return nil, errors.Wrap(err, "booksRepo.Create.QueryRowx")
+	}
+
+	return book, nil
+}
+
+func (r *BookRepository) Update(book *Book) error {
+	qry, args, err := sqlx.In(updateBook, book.Author, book.Title, book.Content, book.ID)
+	if err != nil {
+		return err
+	}
+	_, err = r.db.Exec(qry, args...)
+	if err != nil {
+		return err
+	}
+	return nil 
+}
+
+func (r *BookRepository) Delete(id int) error {
+	qry, args, err := sqlx.In(deleteBook, id)
+	if err != nil {
+		return err
+	}
+	_, err = r.db.Exec(qry, args...)
+	if err != nil {
+		return err
+	}
+	return nil 
 }

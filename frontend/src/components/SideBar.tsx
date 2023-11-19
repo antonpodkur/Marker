@@ -21,7 +21,7 @@ const SideBar: React.FC = () => {
             <div className={`flex flex-col items-center`}>
                 <Link to="/" className={`${!open && "scale-0"} text-2xl text-black font-bold mb-5`}>Marker</Link>
                 <SideBarItem path="/book/create" text="Create a book" icon={Book} hiddenText={!open} />
-                <SideBarItem path="/book/" text="My books" icon={List} hiddenText={!open} />
+                <SideBarItem path="/books" text="My books" icon={List} hiddenText={!open} />
                 <SideBarItem path="/settings" text="Settings" icon={Settings} hiddenText={!open} />
             </div>
         </div>

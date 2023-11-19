@@ -3,6 +3,7 @@ import { Book } from "../models/book";
 import { SaveBook } from "../../wailsjs/go/books/BookController"
 import Button from "../components/general/Button";
 import PageWrapper from "../components/PageWrapper";
+import { Link } from "react-router-dom";
 
 const CreateBook: React.FC = () => {
     const [book, setBook] = useState<Book>({ id: "1", author: "", title: "", content: "" })
@@ -33,7 +34,9 @@ const CreateBook: React.FC = () => {
                 onChange={(e) => setBook({ ...book, title: e.target.value })}
                 className="mt-5 px-2 py-1 border border-black rounded"
             />
-            <Button className="mt-10" onClick={() => saveBook()}>Create</Button>
+            <Link to="/books">
+                <Button className="mt-10" onClick={() => saveBook()}>Create</Button>
+            </Link>
         </PageWrapper>
     )
 }
