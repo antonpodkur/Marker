@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { GetBookById } from "../../wailsjs/go/books/BookController";
 import Editor from "../components/editor/Editor";
+import PageWrapper from "../components/PageWrapper";
 import { Book } from "../models/book";
 import { useStore } from "../store/store";
 
@@ -28,12 +29,12 @@ const EditBook: React.FC = () => {
     }
 
     return (
-        <div>
+        <PageWrapper>
             {isLoading 
                 ? <div>Loading</div> 
                 : <Editor book={book} defaultInitState={defaultState}/>
             }
-        </div>
+        </PageWrapper>
     )
 }
 

@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom"
 import { Book } from "../../models/book"
+import { Trash, Download } from "react-feather";
+import Button from "../general/Button";
 
 interface BookCardProps {
   book: Book;
@@ -12,6 +14,11 @@ const BookCard: React.FC<BookCardProps> = ({book}) => {
         <div>{ book.title }</div>
       </div>
       <div className="m-2 font-semibold">{ book.author }</div>
+
+      <div className="flex w-5/6 p-2 justify-around items-center">
+        <Button className={"px-6 md:px-4 lg:px-6"}><Download/></Button> 
+        <Button className={"px-6 md:px-4 lg:px-6"}><Trash/></Button> 
+      </div>
     </Link>
   )
 }

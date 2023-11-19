@@ -30,7 +30,7 @@ func (r *BookRepository) Create(book *Book) (*Book, error) {
 }
 
 func (r *BookRepository) Update(book *Book) error {
-	qry, args, err := sqlx.In(updateBook2, book.Author, book.Title, book.Content, book.ID)
+	qry, args, err := sqlx.In(updateBook, book.Author, book.Title, book.Content, book.ID)
 	if err != nil {
 		return err
 	}
