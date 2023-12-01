@@ -53,14 +53,14 @@ const editorConfig = {
 };
 
 interface EditorProps {
-  book: Book | null;  
+  book: Book | null;
   defaultInitState: string;
 }
 
-export default function Editor({book, defaultInitState}: EditorProps){
+export default function Editor({ book, defaultInitState }: EditorProps) {
 
   function EditorConfig() {
-    const editorState = book && book.content && book.content !== "" ? book.content : defaultInitState 
+    const editorState = book && book.content && book.content !== "" ? book.content : defaultInitState
 
     return {
       // The editor theme
@@ -70,7 +70,7 @@ export default function Editor({book, defaultInitState}: EditorProps){
         throw error;
       },
       namespace: "Marker",
-      editorState: editorState, 
+      editorState: editorState,
       // Any custom nodes go here
       nodes: [
         HeadingNode,

@@ -41,7 +41,7 @@ import {
   getCodeLanguages
 } from "@lexical/code";
 // import {$generateHtmlFromNodes} from '@lexical/html';
-// import { $convertToMarkdownString, TRANSFORMERS} from '@lexical/markdown';
+import { $convertToMarkdownString, TRANSFORMERS } from '@lexical/markdown';
 import { htmlStringToPdf } from "../utils";
 import { EXPORT_PDF_COMMAND, SAVE_DOCUMENT_COMMAND } from "../lexicalCommands";
 import { SaveBook, UpdateBook } from "../../../../wailsjs/go/books/BookController";
@@ -87,13 +87,12 @@ function positionEditorElement(editor: any, rect: any) {
   } else {
     editor.style.opacity = "1";
     editor.style.top = `${rect.top + rect.height + window.pageYOffset + 10}px`;
-    editor.style.left = `${
-      rect.left + window.pageXOffset - editor.offsetWidth / 2 + rect.width / 2
-    }px`;
+    editor.style.left = `${rect.left + window.pageXOffset - editor.offsetWidth / 2 + rect.width / 2
+      }px`;
   }
 }
 
-function FloatingLinkEditor({ editor }: {editor: any}) {
+function FloatingLinkEditor({ editor }: { editor: any }) {
   const editorRef = useRef<any>(null);
   const inputRef = useRef<any>(null);
   const mouseDownRef = useRef(false);
@@ -157,7 +156,7 @@ function FloatingLinkEditor({ editor }: {editor: any}) {
 
   useEffect(() => {
     return mergeRegister(
-      editor.registerUpdateListener(({ editorState }: {editorState: EditorState}) => {
+      editor.registerUpdateListener(({ editorState }: { editorState: EditorState }) => {
         editorState.read(() => {
           updateLinkEditor();
         });
@@ -272,7 +271,7 @@ function BlockOptionsDropdownList({
   blockType,
   toolbarRef,
   setShowBlockOptionsDropDown
-}: {editor: any, blockType: any, toolbarRef: any, setShowBlockOptionsDropDown: any}) {
+}: { editor: any, blockType: any, toolbarRef: any, setShowBlockOptionsDropDown: any }) {
   const dropDownRef = useRef<any>(null);
 
   useEffect(() => {
@@ -449,7 +448,7 @@ export default function ToolbarPlugin() {
   const [isStrikethrough, setIsStrikethrough] = useState(false);
   const [isCode, setIsCode] = useState(false);
 
-  const {currentBook, setCurrentBook} = useStore();
+  const { currentBook, setCurrentBook } = useStore();
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -538,7 +537,7 @@ export default function ToolbarPlugin() {
       editor.registerCommand(
         SAVE_DOCUMENT_COMMAND,
         (payload) => {
-          // UpdateBook(payload).then(() => console.log("Updated!")).catch((err: any) => console.error(err))   
+          // UpdateBook(payload).then(() => console.log("Updated!")).catch((err: any) => console.error(err))
           UpdateBook(payload)
           return true;
         },
@@ -736,20 +735,18 @@ export default function ToolbarPlugin() {
           <button
             onClick={() => {
               if (currentBook !== null) {
-                setCurrentBook( {...currentBook, content: JSON.stringify(editor.getEditorState())} as Book) 
-                const book = {...currentBook, content: JSON.stringify(editor.getEditorState())} as Book
-                console.log(book)
+                setCurrentBook({ ...currentBook, content: JSON.stringify(editor.getEditorState()) } as Book)
+                const book = { ...currentBook, content: JSON.stringify(editor.getEditorState()) } as Book
                 editor.dispatchCommand(SAVE_DOCUMENT_COMMAND, book);
               }
             }}
             className="toolbar-item"
             aria-label="Save"
           >
-            <Save/>
+            <Save />
           </button>{" "}
         </>
       )}
     </div>
   );
 }
-
