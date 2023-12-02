@@ -6,7 +6,7 @@ import PageWrapper from "../components/PageWrapper";
 import { Link } from "react-router-dom";
 
 const CreateBook: React.FC = () => {
-    const [book, setBook] = useState<Book>({ id: "1", author: "", title: "", content: "" })
+    const [book, setBook] = useState<Book>({ id: "1", author: "", title: "", content: "", markdown: "" })
 
     const saveBook = () => {
         console.log("Saving a book ...")

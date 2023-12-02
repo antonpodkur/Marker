@@ -72,12 +72,25 @@ h1 {
     overflow: hidden;
     position: absolute;
     text-overflow: ellipsis;
-    top: 15px;
-    left: 10px;
+    top: 16%;
+    left: 7%;
     font-size: 15px;
     user-select: none;
     display: inline-block;
     pointer-events: none;
+}
+
+@media screen and (max-width: 500px) {
+    .editor-placeholder {
+        top: 20%;
+        left: 10%;
+    }
+}
+
+@media screen and (min-width: 820px) {
+    .editor-placeholder {
+        top: 12%;
+    }
 }
 
 .editor-text-bold {

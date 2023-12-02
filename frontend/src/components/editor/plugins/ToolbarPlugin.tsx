@@ -736,7 +736,11 @@ export default function ToolbarPlugin() {
             onClick={() => {
               if (currentBook !== null) {
                 setCurrentBook({ ...currentBook, content: JSON.stringify(editor.getEditorState()) } as Book)
-                const book = { ...currentBook, content: JSON.stringify(editor.getEditorState()) } as Book
+                const book = { 
+                    ...currentBook,
+                    content: JSON.stringify(editor.getEditorState()), 
+                    markdown: editor.getEditorState().read(() => $convertToMarkdownString(TRANSFORMERS)) 
+                } as Book
                 editor.dispatchCommand(SAVE_DOCUMENT_COMMAND, book);
               }
             }}

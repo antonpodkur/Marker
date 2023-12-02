@@ -6,7 +6,8 @@ const (
 		    id INTEGER PRIMARY KEY AUTOINCREMENT,
 		    author TEXT NOT NULL,
 		    title TEXT NOT NULL,
-		    content TEXT NOT NULL
+		    content TEXT NOT NULL,
+		    markdown TEXT DEFAULT "" NOT NULL
 		)
 `
 )

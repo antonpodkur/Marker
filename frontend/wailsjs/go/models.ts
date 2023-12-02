@@ -5,6 +5,7 @@ export namespace books {
 	    author: string;
 	    title: string;
 	    content: string;
+	    markdown: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new Book(source);
@@ -16,6 +17,7 @@ export namespace books {
 	        this.author = source["author"];
 	        this.title = source["title"];
 	        this.content = source["content"];
+	        this.markdown = source["markdown"];
 	    }
 	}
 

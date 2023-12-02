@@ -27,31 +27,6 @@ function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
 }
 
-
-const editorConfig = {
-  // The editor theme
-  theme: MainTheme,
-  // Handling of errors during update
-  onError(error: any) {
-    throw error;
-  },
-  namespace: "Marker",
-  // Any custom nodes go here
-  nodes: [
-    HeadingNode,
-    ListNode,
-    ListItemNode,
-    QuoteNode,
-    CodeNode,
-    CodeHighlightNode,
-    TableNode,
-    TableCellNode,
-    TableRowNode,
-    AutoLinkNode,
-    LinkNode
-  ]
-};
-
 interface EditorProps {
   book: Book | null;
   defaultInitState: string;
