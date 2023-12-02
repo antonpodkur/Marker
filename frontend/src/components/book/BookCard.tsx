@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { Book } from "../../models/book"
 import { Trash, Download } from "react-feather";
 import Button from "../general/Button";
-import { DeleteBookById } from "../../../wailsjs/go/books/BookController";
+import { DeleteBookById, ExportBook } from "../../../wailsjs/go/books/BookController";
 import { useStore } from "../../store/store";
 
 interface BookCardProps {
@@ -11,6 +11,15 @@ interface BookCardProps {
 
 const BookCard: React.FC<BookCardProps> = ({book}) => {
   const removeBook = useStore(store => store.removeBook)
+  
+  const onDownload = async (bookId: number) => {
+    try {
+      await ExportBook(bookId)
+    } catch(error) {
+      console.error("Download failed: " + error)
+    }
+  }
+
   const onDelete = async () => {
     try {
       await DeleteBookById(Number(book.id))
@@ -29,7 +38,7 @@ const BookCard: React.FC<BookCardProps> = ({book}) => {
         <div className="m-2 font-semibold">{ book.author }</div>
       </Link>
         <div className="flex w-5/6 p-2 justify-around items-center">
-          <Button className={"px-6 md:px-4"}><Download/></Button> 
+          <Button className={"px-6 md:px-4"} onClick={async() => await onDownload(Number(book.id))} ><Download/></Button> 
           <Button className={"px-6 md:px-4"} onClick={async () => await onDelete()}><Trash/></Button> 
         </div>
     </div>

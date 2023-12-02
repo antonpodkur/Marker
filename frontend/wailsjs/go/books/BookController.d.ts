@@ -4,6 +4,8 @@ import {books} from '../models';
 
 export function DeleteBookById(arg1:number):Promise<void>;
 
+export function ExportBook(arg1:number):Promise<void>;
+
 export function GetAllBooks():Promise<Array<books.Book>>;
 
 export function GetBookById(arg1:number):Promise<books.Book>;

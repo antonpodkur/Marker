@@ -6,6 +6,10 @@ export function DeleteBookById(arg1) {
   return window['go']['books']['BookController']['DeleteBookById'](arg1);
 }
 
+export function ExportBook(arg1) {
+  return window['go']['books']['BookController']['ExportBook'](arg1);
+}
+
 export function GetAllBooks() {
   return window['go']['books']['BookController']['GetAllBooks']();
 }
