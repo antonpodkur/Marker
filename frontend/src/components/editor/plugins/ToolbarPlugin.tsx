@@ -47,7 +47,7 @@ import { EXPORT_PDF_COMMAND, SAVE_DOCUMENT_COMMAND } from "../lexicalCommands";
 import { SaveBook, UpdateBook } from "../../../../wailsjs/go/books/BookController";
 import { useStore } from "../../../store/store";
 import { Book } from "../../../models/book";
-import { Save } from "react-feather";
+import { Save } from 'react-bootstrap-icons';
 
 const LowPriority = 1;
 const NormalPriority = 2;
@@ -771,7 +771,7 @@ export default function ToolbarPlugin() {
                 editor.dispatchCommand(SAVE_DOCUMENT_COMMAND, book);
               }
             }}
-            className="toolbar-item"
+            className="toolbar-item items-center"
             aria-label="Save"
           >
             <Save />
