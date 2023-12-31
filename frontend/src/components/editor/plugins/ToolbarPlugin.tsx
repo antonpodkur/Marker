@@ -546,6 +546,33 @@ export default function ToolbarPlugin() {
     );
   }, [editor, updateToolbar]);
 
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.ctrlKey && event.key === "s") {
+        if (currentBook !== null) {
+          setCurrentBook({
+            ...currentBook,
+            content: JSON.stringify(editor.getEditorState()),
+          } as Book);
+
+          const book = {
+            ...currentBook,
+            content: JSON.stringify(editor.getEditorState()),
+            markdown: editor.getEditorState().read(() => $convertToMarkdownString(TRANSFORMERS)),
+          } as Book;
+
+          editor.dispatchCommand(SAVE_DOCUMENT_COMMAND, book);
+        }
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    }
+  }, []); 
+
   const codeLanguges = useMemo(() => getCodeLanguages(), []);
   const onCodeLanguageSelect = useCallback(
     (e: any) => {
