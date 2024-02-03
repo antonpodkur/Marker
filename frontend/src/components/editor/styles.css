@@ -57,6 +57,7 @@ h1 {
 }
 
 .editor-inner {
+    position: relative;
     background: #fff;
     max-height: 90%;
     overflow-y: scroll;
@@ -79,25 +80,12 @@ h1 {
     overflow: hidden;
     position: absolute;
     text-overflow: ellipsis;
-    top: 18%;
-    left: 7%;
+    top: 15px;
+    left: 15px;
     font-size: 15px;
     user-select: none;
     display: inline-block;
     pointer-events: none;
-}
-
-@media screen and (max-width: 650px) {
-    .editor-placeholder {
-        top: 22%;
-        left: 10%;
-    }
-}
-
-@media screen and (min-width: 920px) {
-    .editor-placeholder {
-        top: 14%;
-    }
 }
 
 .editor-text-bold {
