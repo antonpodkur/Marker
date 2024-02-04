@@ -24,7 +24,7 @@ import "./styles.css"
 import { Book } from "../../models/book";
 
 function Placeholder() {
-  return <div className="editor-placeholder">Enter some rich text...</div>;
+  return <div className="editor-placeholder">Let's start writng...</div>;
 }
 
 interface EditorProps {
