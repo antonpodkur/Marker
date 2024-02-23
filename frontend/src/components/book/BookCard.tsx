@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { Book } from "../../models/book"
 import { Trash, Download } from "react-feather";
-import Button from "../general/Button";
+import { Button } from "@/components/ui/button";
 import { DeleteBookById, ExportBook } from "../../../wailsjs/go/books/BookController";
 import { useStore } from "../../store/store";
 
@@ -38,8 +38,8 @@ const BookCard: React.FC<BookCardProps> = ({book}) => {
         <div className="m-2 font-semibold">{ book.author }</div>
       </Link>
         <div className="flex w-5/6 p-2 justify-around items-center">
-          <Button className={"px-6 md:px-4"} onClick={async() => await onDownload(Number(book.id))} ><Download/></Button> 
-          <Button className={"px-6 md:px-4"} onClick={async () => await onDelete()}><Trash/></Button> 
+          <Button variant={"ghost"} className={"px-6 md:px-4"} onClick={async() => await onDownload(Number(book.id))} ><Download/></Button> 
+          <Button variant={"ghost"} className={"px-6 md:px-4"} onClick={async () => await onDelete()}><Trash/></Button> 
         </div>
     </div>
   )

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { SelectFolder } from "../../wailsjs/go/user/UserController";
-import Button from "../components/general/Button";
+import { Button } from "@/components/ui/button";
 import PageWrapper from "../components/PageWrapper";
 import SettingsItem from "../components/settings/SettingsItem";
 import { useStore } from "../store/store";
@@ -26,6 +26,7 @@ const Settings = () => {
             <div className="flex flex-col w-full mt-12 ml-6">
                 <SettingsItem title="Folder to store books">
                     <Button
+                        variant={"outline"}
                         className="py-1 px-2 w-fit text-sm"
                         onClick={async () => await selectFolder()}>
                         {store.config?.folder !== "" ? store.config?.folder : "Not selected"}

@@ -1,12 +1,14 @@
 
 import { Link } from "react-router-dom"
+import { buttonVariants } from "../ui/button"
+import { twMerge } from "tailwind-merge"
 
 
 interface NavigationButtonProps {
    path: string 
    text: string
    icon: React.ComponentType<any> 
-   withBottomMargin?: boolean 
+   expand?: boolean
    hiddenText?: boolean
 }
 
@@ -14,11 +16,17 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
     path, 
     text, 
     icon: IconComponent, 
-    withBottomMargin = true,
+    expand = false,
     hiddenText = false
 }) => {
+    function getStyles(): string {
+        if (expand) {
+            return twMerge(buttonVariants({ variant: "outline" }), "w-full justify-start")
+        }
+        return buttonVariants({ variant: "outline" })
+    }
     return (
-        <Link to={path} className={`inline-flex items-center py-1 px-2 ${!hiddenText ? "mx-2 justify-start" : "justify-center"} text-lg text-black ${withBottomMargin && "mb-5"} border-2 border-black rounded`}>
+        <Link to={path} className={getStyles()}>
             <IconComponent className={` ${!hiddenText && "mr-2"}`}/>
             <span className={`${hiddenText && "hidden"}  duration-300`}>{text}</span>
         </Link>
