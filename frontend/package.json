@@ -12,6 +12,7 @@
     "@lexical/react": "^0.12.2",
     "lexical": "^0.12.2",
     "react": "^18.2.0",
+    "react-bootstrap-icons": "^1.11.3",
     "react-dom": "^18.2.0",
     "react-feather": "^2.0.10",
     "react-router-dom": "^6.16.0",
@@ -19,7 +20,9 @@
     "zustand": "^4.4.3"
   },
   "devDependencies": {
+    "@types/bootstrap": "^5.2.10",
     "@types/react": "^18.0.17",
+    "@types/react-bootstrap": "^0.32.35",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.1",
     "autoprefixer": "^10.4.15",
